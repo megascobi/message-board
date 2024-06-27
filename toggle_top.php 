@@ -1,0 +1,13 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["message_index"])) {
+    $message_index = $_POST["message_index"];
+    $messages = file_get_contents('messages.json');
+    $messages = json_decode($messages, true);
+    
+    if (isset($messages[$message_index])) {
+        $messages[$message_index]['is_top'] = !$messages[$message_index]['is_top'];
+        file_put_contents('messages.json', json_encode($messages));
+    }
+    header("Location: index.html");
+}
+?>
